@@ -2,7 +2,24 @@
 <p>Welcome to {{title}}</p>
 
 <p>
+<h2>Upcoming</h2>
+{{#each upcoming}}
+	Slot: {{datetime}} <br/>
+	Mentor : {{engmentor}} <br/>
+	Topic: {{topic}} <br/>
+	Owner : {{student}} <br/>
+	<br/>
+{{/each}}
+
+
+<h2>Slots</h2>
+
 {{#each slots}}
+	{{this}} <br>
+{{/each}}
+	
+<h2>Past Mentors</h2>
+{{#each past}}
 	Slot: {{datetime}} <br/>
 	Mentor : {{engmentor}} <br/>
 	Topic: {{topic}} <br/>
