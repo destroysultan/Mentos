@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Fixed Nav + Sticky Footer</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	</head>
+	<body>
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TC Mentor Hub</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Mentor Home</a></li>
+              <li><a href="#about">How do I use this?</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+      
+    <div class="container">
+      <div class="page-header">
+        <h1>{{title}}</h1>
+        <h4>View and book available mentor slots. Check out the upcoming mentor schedule as well as talks from the past.</h4><br />
+        <button type="button" class="btn btn-info">Schedule a Mentor</button>
+        <button type="button" class="btn btn-success">View Upcoming Mentors</button>
+        <button type="button" class="btn btn-warning">View Past Mentors</button>
+      </div><br />
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>Available Mentor Slots</h4> 
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Track</th>
+              <th>Book this slot</th>
+              <th>Calendar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Tue, May 5th</th>
+              <td>5:30 PM</td>
+              <td>Eng</td>
+              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
+              <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
+            </tr>
+            <tr>
+              <th>Thurs, May 7th</th>
+              <td>1pm</td>
+              <td>UX</td>
+              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
+              <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
+            </tr>
+            <tr>
+              <th>Mon, May 11th</th>
+              <td>1:30 PM</td>
+              <td>Uber</td>
+              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
+              <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div><br />
+
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h4>Upcoming Mentors <small>View and book available mentor slots</small></h4> 
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Title</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">2/26/2015</th>
+              <td>Mark Zuckerberg</td>
+              <td>Facebook</td>
+              <td>Founder/CEO</td>
+              <td>Wen Li</td>
+            </tr>
+            <tr>
+              <th scope="row">3/2/2015</th>
+              <td>Jack Dorsey</td>
+              <td>Twitter, Square</td>
+              <td>Founder</td>
+              <td>Michael Owens</td>
+            </tr>
+            <tr>
+              <th scope="row">3/7/2015</th>
+              <td>Travis Kalanick</td>
+              <td>Uber</td>
+              <td>Founder/CEO</td>
+              <td>Troy Sultan</td>
+            </tr>
+          </tbody>
+        </table>
+      </div><br />
+
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h4>Past Mentors <small>Previous mentors, info and links to audio</small></h4>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Title</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">2/26/2015</th>
+              <td>Mark Zuckerberg</td>
+              <td>Facebook</td>
+              <td>Founder/CEO</td>
+              <td>Wen Li</td>
+            </tr>
+            <tr>
+              <th scope="row">3/2/2015</th>
+              <td>Jack Dorsey</td>
+              <td>Twitter, Square</td>
+              <td>Founder</td>
+              <td>Michael Owens</td>
+            </tr>
+            <tr>
+              <th scope="row">3/7/2015</th>
+              <td>Travis Kalanick</td>
+              <td>Uber</td>
+              <td>Founder/CEO</td>
+              <td>Troy Sultan</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><br />
+
+
+    <div id="footer">
+      <div class="container">
+        <center><p class="text-muted credit">Made with &hearts; from TC Eng (upstairs...in the cloud)</p></center>
+      </div>
+    </div>
+
+	<!-- script references -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</body>
+</html>
