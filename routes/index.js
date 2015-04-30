@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var GoogleSpreadsheet = require("google-spreadsheet");
 var _ = require('underscore');
+var storeThingsArray = [];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,6 +33,8 @@ router.get('/', function(req, res, next) {
 
 			var pastMentors = [];
 			var upcoming = [];
+
+			console.log(allMentors[0].content);
 
 			for(var i = 0; i < allMentors.length; i++){
 				var mentorTime = new Date(allMentors[i]['datetime']);
