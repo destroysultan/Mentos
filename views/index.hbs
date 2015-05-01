@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>Fixed Nav + Sticky Footer</title>
-		<meta name="generator" content="Bootply" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	</head>
-	<body>
     <!-- Wrap all page content here -->
     <div id="wrap">
       <!-- Fixed navbar -->
@@ -20,11 +9,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">TC Mentor Hub</a>
+            <a class="navbar-brand" href="#">Tradecraft</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Mentor Home</a></li>
+              <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">How do I use this?</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -32,51 +21,53 @@
       </div>
       
     <div class="container">
-      <div class="page-header">
-        <h1>{{title}}</h1>
-        <h4>View and book available mentor slots. Check out the upcoming mentor schedule as well as talks from the past.</h4><br />
-        <button type="button" class="btn btn-info">Schedule a Mentor</button>
-        <button type="button" class="btn btn-success">View Upcoming Mentors</button>
-        <button type="button" class="btn btn-warning">View Past Mentors</button>
+      <div class="blockquote">
+        <blockquote>
+        <h2>{{title}}</h2>
+        <p>View and book available mentor slots, check out upcoming and past mentors, be awesome.</p><br />
+        </blockquote>
       </div><br />
+
+      <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#">All-track</a></li>
+          <li role="presentation"><a href="#">Engineering</a></li>
+          <li role="presentation"><a href="#">UX/Product Design</a></li>
+          <li role="presentation"><a href="#">Growth</a></li>
+          <li role="presentation"><a href="#">Sales/BD</a></li>
+      </ul><br />
 
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h4>Available Mentor Slots</h4> 
+          <h4>Available Mentor Slots <small>Pick a slot, click Book Now, fill out the form and then click Send Invite</small></h4> 
         </div>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Track</th>
+              <th>Day/Time</th>
               <th>Book this slot</th>
-              <th>Calendar</th>
-
+              <!-- <th>Calendar</th> -->
             </tr>
           </thead>
           <tbody>
+            {{#each slots}}
             <tr>
-              <th>Tue, May 5th</th>
-              <td>5:30 PM</td>
-              <td>Eng</td>
+                <td>
+                  {{this}}
+                </td>
+              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
+              <!-- <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td> -->
+            </tr>
+            {{/each}}
+<!--             <tr>
+              <th>Thurs, May 7th at 1:30PM</th>
               <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
               <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
             </tr>
             <tr>
-              <th>Thurs, May 7th</th>
-              <td>1:00 PM</td>
-              <td>UX</td>
+              <th>Mon, May 11th at 5:30PM</th>
               <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
               <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
-            </tr>
-            <tr>
-              <th>Mon, May 11th</th>
-              <td>1:30 PM</td>
-              <td>Sales/BD</td>
-              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
-              <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div><br />
@@ -90,33 +81,21 @@
             <tr>
               <th>Date</th>
               <th>Name</th>
-              <th>Company</th>
               <th>Title</th>
+              <th>Company</th>
               <th>Owner</th>
             </tr>
           </thead>
           <tbody>
+            {{#each upcoming}}
             <tr>
-              <th scope="row">2/26/2015</th>
-              <td>Mark Zuckerberg</td>
-              <td>Facebook</td>
-              <td>Founder/CEO</td>
-              <td>Wen Li</td>
+              <th>{{datetime}}</th>
+              <a href="{{link}}"> <td>{{engmentorname}}</td></a>
+              <td>blah</td>
+              <td>blah</td>
+              <td>{{student}}</td>
             </tr>
-            <tr>
-              <th scope="row">3/2/2015</th>
-              <td>Jack Dorsey</td>
-              <td>Twitter, Square</td>
-              <td>Founder</td>
-              <td>Michael Owens</td>
-            </tr>
-            <tr>
-              <th scope="row">3/7/2015</th>
-              <td>Travis Kalanick</td>
-              <td>Uber</td>
-              <td>Founder/CEO</td>
-              <td>Troy Sultan</td>
-            </tr>
+            {{/each}}
           </tbody>
         </table>
       </div><br />
@@ -130,47 +109,34 @@
             <tr>
               <th>Date</th>
               <th>Name</th>
-              <th>Company</th>
               <th>Title</th>
+              <th>Company</th>
               <th>Owner</th>
             </tr>
           </thead>
           <tbody>
+            {{#each past}}
             <tr>
-              <th scope="row">2/26/2015</th>
-              <td>Mark Zuckerberg</td>
-              <td>Facebook</td>
-              <td>Founder/CEO</td>
-              <td>Wen Li</td>
+              <th>{{datetime}}</th>
+              <td>{{engmentorname}}</td>
+              <td>blah</td>
+              <td>blah</td>
+              <td>{{student}}</td>
             </tr>
-            <tr>
-              <th scope="row">3/2/2015</th>
-              <td>Jack Dorsey</td>
-              <td>Twitter, Square</td>
-              <td>Founder</td>
-              <td>Michael Owens</td>
-            </tr>
-            <tr>
-              <th scope="row">3/7/2015</th>
-              <td>Travis Kalanick</td>
-              <td>Uber</td>
-              <td>Founder/CEO</td>
-              <td>Troy Sultan</td>
-            </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>
     </div><br />
 
+    <hr>
 
     <div id="footer">
       <div class="container">
-        <center><p class="text-muted credit">Made with &hearts; from TC Eng (upstairs...in the cloud)</p></center>
+        <center><p class="text-muted credit">Made with &hearts; from TC Eng (you know, upstairs...in the cloud)</p></center>
       </div>
     </div>
 
 	<!-- script references -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	</body>
-</html>

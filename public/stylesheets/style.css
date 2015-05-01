@@ -6,3 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+h4 small {
+	color: #999999;
+}
+
+.blockquote {
+	padding-top: 2.5%;
+}
+
+blockquote p {
+	color: #999999;
+}
