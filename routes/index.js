@@ -256,7 +256,7 @@ router.get('/sales', function(req, res, next) {
 		}
 
 		//ordered list of mentors
-		my_sheet.getRows( 3Il0v3t3ch!!, options, function(err, allMentors){
+		my_sheet.getRows( 3, options, function(err, allMentors){
 
 			var pastMentors = [];
 			var upcoming = [];
