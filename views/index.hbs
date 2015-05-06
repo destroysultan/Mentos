@@ -9,7 +9,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Tradecraft</a>
+            <a class="navbar-brand" href="/mentors">Tradecraft</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -29,11 +29,11 @@
       </div><br />
 
       <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="/">All-track</a></li>
-          <li role="presentation"><a href="/eng">Engineering</a></li>
-          <li role="presentation"><a href="/pd">UX/Product Design</a></li>
-          <li role="presentation"><a href="/growth">Growth</a></li>
-          <li role="presentation"><a href="/sales">Sales/BD</a></li>
+          <li id="allTrackTab" role="presentation"><a href="/mentors">All-track</a></li>
+          <li id="engTab" role="presentation"><a href="/mentors/eng">Engineering</a></li>
+          <li id="pdTab" role="presentation"><a href="/mentors/pd">UX/Product Design</a></li>
+          <li id="growthTab" role="presentation"><a href="/mentors/growth">Growth</a></li>
+          <li id="salesTab" role="presentation"><a href="/mentors/sales">Sales/BD</a></li>
       </ul><br />
 
       <div class="panel panel-info">
@@ -45,7 +45,6 @@
             <tr>
               <th>Day/Time</th>
               <th>Book this slot</th>
-              <!-- <th>Calendar</th> -->
             </tr>
           </thead>
           <tbody>
@@ -54,8 +53,7 @@
                 <td>
                   {{this}}
                 </td>
-              <td><a href="#" class="btn btn-primary btn-xs" role="button">Book now</a></td>
-              <!-- <td><a href="#" class="btn btn-danger btn-xs" role="button">Send Invite</a></td> -->
+              <td><a href="https://docs.google.com/forms/d/1Gx0kRZG7z_qlKZPpxgHJYJMqspPCvo2e8uSQQtfwHfo/viewform" class="btn btn-primary btn-xs" role="button">Book now</a></td>
             </tr>
             {{/each}}
           </tbody>
@@ -64,7 +62,7 @@
 
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h4>Scheduled Mentors <small>View and book available mentor slots</small></h4> 
+          <h4>Upcoming Mentors <small>View and book available mentor slots</small></h4> 
         </div>
         <table class="table table-striped">
           <thead>
@@ -74,6 +72,7 @@
               <th>Title</th>
               <th>Company</th>
               <th>Owner</th>
+              <th>Export to gCal</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +83,7 @@
               <td>blah</td>
               <td>blah</td>
               <td>{{student}}</td>
+              <td><a href="#" class="btn btn-danger btn-xs" role="button">Create Event</a></td>
             </tr>
             {{/each}}
           </tbody>
@@ -130,3 +130,25 @@
 	<!-- script references -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var trackTab = location["pathname"].replace("/mentors/", "");
+
+        switch (trackTab) {
+          case "eng": 
+            $("#engTab").addClass("active")
+            break;
+          case "pd": 
+            $("#pdTab").addClass("active")
+            break;
+          case "sales": 
+            $("#salesTab").addClass("active")
+            break;
+          case "growth": 
+            $("#growthTab").addClass("active")
+            break;
+          default: 
+            $("#allTrackTab").addClass("active")
+        }
+      })
+    </script>
