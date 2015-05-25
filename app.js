@@ -10,7 +10,6 @@ var router = express.Router();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-curl = require('node-curl')
 
 
 var app = express();

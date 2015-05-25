@@ -4,8 +4,6 @@ var GoogleSpreadsheet = require("google-spreadsheet");
 var _ = require('underscore');
 var moment = require('moment');
 var http = require('http');
-var curl = require('node-curl');
-
 
 
 var allTrackSlotsPage = 7;
