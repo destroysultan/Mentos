@@ -121,7 +121,7 @@ router.get('/login_fail', function(req, res){
 //logout
 router.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/logged_out');
+  res.redirect('/mentors');
 });
 
 router.get('/logged_out', function(req, res){ 
