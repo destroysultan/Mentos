@@ -170,15 +170,11 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 		for(var i = 0; i < allMentors.length; i++){
 			var mentorTime = new Date(allMentors[i]['datetime']);
 
-			//reformat date to be prettier
-			allMentors[i]['datetime'] = moment(mentorTime).format("lll");
-			allMentors[i]['datetimeCalendar'] = moment(mentorTime).format("YYYYMMDDTHHMMSS") + "Z/" + moment(mentorTime).add(1, 'hours').format("YYYYMMDDTHHMMSS")
-			//debug code
-			// console.log('$$$$$$$$$$$$$$$$$$$$$')
-			// console.log(mentorTime)
-			// console.log(allMentors[i]['datetimeCalendar'])
-			// console.log('%%%%%%%%%%%%%%%%%%%%%')
-			// console.log(allMentors[i]['datetime'])
+						//reformat date to be prettier
+			allMentors[i]['datetime'] = moment(mentorTime).format("lll"); 
+
+			var start = moment(mentorTime);
+			allMentors[i]['datetimeCalendar'] = start.format("YYYYMMDDTHHmmss") + "/" + start.add(1, 'hours').format("YYYYMMDDTHHmmss");
 			
 			var slotIndex = trackTimeSlots.indexOf(mentorTime.toString());
 
