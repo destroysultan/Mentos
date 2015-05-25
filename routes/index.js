@@ -113,13 +113,13 @@ router.get('/login', function(req, res, next) {
 });
 //login fail route
 router.get('/login_fail', function(req, res){
-	console.log("bad login");
   res.render('bad_login');
 });
 
 
 //logout
 router.get('/logout', function(req, res){
+	console.log("LOGGED OUT");
   req.logout();
   res.redirect('/mentors');
 });
