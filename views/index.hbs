@@ -80,7 +80,7 @@
                 <td>
                   {{this}}
                 </td>
-              <td><a id="formLink" class="btn btn-primary btn-xs" role="button" target="_blank">Book now</a></td>
+              <td><a class="formLink btn btn-primary btn-xs" role="button" target="_blank">Book now</a></td>
             </tr>
             {{/each}}
           </tbody>
@@ -132,23 +132,23 @@
         switch (trackTab) {
           case "eng": 
             $("#engTab").addClass("active")
-            $("#formLink").attr("href", "http://goo.gl/forms/qmgKtfImJH")
+            $(".formLink").attr("href", "http://goo.gl/forms/qmgKtfImJH")
             break;
           case "pd": 
             $("#pdTab").addClass("active")
-            $("#formLink").attr("href", "http://goo.gl/forms/CBdQifPVMp")
+            $(".formLink").attr("href", "http://goo.gl/forms/CBdQifPVMp")
             break;
           case "sales": 
             $("#salesTab").addClass("active")
-            $("#formLink").attr("href", "http://goo.gl/forms/eZhpXe5Sur")
+            $(".formLink").attr("href", "http://goo.gl/forms/eZhpXe5Sur")
             break;
           case "growth": 
             $("#growthTab").addClass("active")
-            $("#formLink").attr("href", "http://goo.gl/forms/f3ew0ZDQ9V")
+            $(".formLink").attr("href", "http://goo.gl/forms/f3ew0ZDQ9V")
             break;
           default: 
             $("#allTrackTab").addClass("active")
-            $("#formLink").attr("href", "http://goo.gl/forms/3cxmi9HAa2")
+            $(".formLink").attr("href", "http://goo.gl/forms/3cxmi9HAa2")
         }
       });
 
