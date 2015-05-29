@@ -71,7 +71,7 @@ app.use('/oauth2callback',
   passport.authenticate('google', { failureRedirect: '/login_fail'}),
   function(req, res) {
     if (req.user['_json'].domain == "tradecrafted.com")
-      res.redirect('/mentors');
+      res.redirect('/');
     else {
       res.redirect('/login_fail');
     }
