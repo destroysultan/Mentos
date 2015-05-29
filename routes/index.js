@@ -21,7 +21,7 @@ var my_sheet = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
 my_sheet.setAuth(process.env.EMAIL, process.env.GOOGLE_PASSWORD, function() {});	
 
 /* GET pages. */
-router.get('/mentors/eng', ensureAuthenticated, function(req, res, next) {
+router.get('/eng', ensureAuthenticated, function(req, res, next) {
 		// spreadsheet key is the long id in the sheets URL 
 		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
 			getAllSlots(err, allSlots, engPage, res, "eng");
@@ -29,7 +29,7 @@ router.get('/mentors/eng', ensureAuthenticated, function(req, res, next) {
 		});
 });
 
-router.get('/mentors/pd', ensureAuthenticated, function(req, res, next) {
+router.get('/pd', ensureAuthenticated, function(req, res, next) {
 		// spreadsheet key is the long id in the sheets URL 
 		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
 			getAllSlots(err, allSlots, pdPage, res, "pd");
@@ -37,7 +37,7 @@ router.get('/mentors/pd', ensureAuthenticated, function(req, res, next) {
 		});
 });
 
-router.get('/mentors/sales', ensureAuthenticated, function(req, res, next) {
+router.get('/sales', ensureAuthenticated, function(req, res, next) {
 		// spreadsheet key is the long id in the sheets URL 
 		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
 			getAllSlots(err, allSlots, salesPage, res, "sales");
@@ -45,7 +45,7 @@ router.get('/mentors/sales', ensureAuthenticated, function(req, res, next) {
 		});
 });
 
-router.get('/mentors/growth', ensureAuthenticated, function(req, res, next) {
+router.get('/growth', ensureAuthenticated, function(req, res, next) {
 		// spreadsheet key is the long id in the sheets URL 
 		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
 			getAllSlots(err, allSlots, growthPage, res, "growth");
@@ -53,7 +53,7 @@ router.get('/mentors/growth', ensureAuthenticated, function(req, res, next) {
 		});
 });
 
-router.get('/mentors/', ensureAuthenticated, function(req, res, next) {
+router.get('/', ensureAuthenticated, function(req, res, next) {
 		// spreadsheet key is the long id in the sheets URL 
 		my_sheet.getRows(allTrackSlotsPage, function(err, allSlots) {
 			//debugging
@@ -65,7 +65,7 @@ router.get('/mentors/', ensureAuthenticated, function(req, res, next) {
 
 //calendar event creation
 
-router.get('/mentors/add_event', ensureAuthenticated, function(req, res, next) {
+router.get('/add_event', ensureAuthenticated, function(req, res, next) {
 	//old code to post automatically [not working]
 	// var calendarId = 'test'
 	// console.log('this is add_event');
@@ -121,7 +121,7 @@ router.get('/login_fail', function(req, res){
 router.get('/logout', function(req, res){
 	console.log("LOGGED OUT");
   req.logout();
-  res.redirect('/mentors');
+  res.redirect('/');
 });
 
 router.get('/logged_out', function(req, res){ 

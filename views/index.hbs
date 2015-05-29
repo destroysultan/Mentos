@@ -9,7 +9,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/mentors">Tradecraft Mentors</a>
+            <a class="navbar-brand" href="/">Tradecraft Mentors</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -28,11 +28,11 @@
       </div><br />
 
       <ul class="nav nav-pills">
-          <li id="allTrackTab" role="presentation"><a href="/mentors">All-track</a></li>
-          <li id="engTab" role="presentation"><a href="/mentors/eng">Engineering</a></li>
-          <li id="pdTab" role="presentation"><a href="/mentors/pd">UX/Product Design</a></li>
-          <li id="growthTab" role="presentation"><a href="/mentors/growth">Growth</a></li>
-          <li id="salesTab" role="presentation"><a href="/mentors/sales">Sales/BD</a></li>
+          <li id="allTrackTab" role="presentation"><a href="/">All-track</a></li>
+          <li id="engTab" role="presentation"><a href="/eng">Engineering</a></li>
+          <li id="pdTab" role="presentation"><a href="/pd">UX/Product Design</a></li>
+          <li id="growthTab" role="presentation"><a href="/growth">Growth</a></li>
+          <li id="salesTab" role="presentation"><a href="/sales">Sales/BD</a></li>
       </ul><br /><br />
 
       <div class="panel panel-info">
@@ -127,7 +127,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script>
       $(document).ready(function() {
-        var trackTab = location["pathname"].replace("/mentors/", "");
+        var trackTab = location["pathname"].replace("/", "");
 
         switch (trackTab) {
           case "eng": 
