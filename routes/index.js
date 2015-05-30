@@ -190,7 +190,7 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 			}
 		}
 
-		res.render('index', { title: 'Mentos' , upcoming: upcoming, slots: trackTimeSlots.reverse(), past: pastMentors.reverse()});
+		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots.reverse(), past: pastMentors.reverse()});
 }
 
 module.exports = router;
