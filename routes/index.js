@@ -63,47 +63,6 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 		});
 });
 
-//calendar event creation
-
-router.get('/add_event', ensureAuthenticated, function(req, res, next) {
-	//old code to post automatically [not working]
-	// var calendarId = 'test'
-	// console.log('this is add_event');
-	// var options = {
- //  host: 'www.googleapis.com',
- //  path: '/calendar/v3/calendars/' + calendarId + '/events',
- //  port: '80',
- //  rejectUnauthorized: false,
- //  requestCert: true,
- //  secureOptions: require('constants').SSL_OP_NO_TLSv1_2,
- //  agent: false,
- //  //This is the only line that is new. `headers` is an object with the headers to request
- //  method: 'POST'
-	// };
-	// callback = function(response){
-		
-	//   var str = ''
-	//   response.on('data', function (chunk) {
-	//     str += chunk;
-	//   });
-
-	//   response.on('end', function () {
-	//     console.log(str);
-	//   });
-	// }
-
-	// var req = http.request(options, callback);
-	// req.on('error', function(e) {
-	// 	console.log(e.message);
-	// });
-	// req.end();
-
-	// new code redirects to google calendar invite
-
-
-
-
-});
 
 ///////authentication routes////////////
 
@@ -177,7 +136,7 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 			var slotIndex = trackTimeSlots.indexOf(mentorTime.toString());
 
 			//separate mentors by past and upcoming
-			if (mentorTime > new Date()) {
+			if (mentorTime.getTime() > Date.now()) {
 				upcoming.push(allMentors[i]);
 			}
 			else {
