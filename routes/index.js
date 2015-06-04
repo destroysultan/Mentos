@@ -110,9 +110,6 @@ function getAllSlots(err, allSlots, responsePage, res){
 		}
 
 		my_sheet.getRows(responsePage, options, function(err, allMentors){
-			//debugging
-			// console.log("$$$$$$$$$$GETTING ROWS \n \n\n")
-			// console.log(allMentors)
 			getMentorSlotObject(trackTimeSlots, allMentors, res);
 		});
 }
@@ -126,14 +123,13 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 
 		for(var i = 0; i < allMentors.length; i++){
 			var mentorTime = new Date(allMentors[i]['datetime']);
-
 						//reformat date to be prettier
-			allMentors[i]['datetime'] = moment(mentorTime).format("lll"); 
+			allMentors[i]['datetime'] = moment(mentorTime).format("llll"); 
 
 			var start = moment(mentorTime);
 			allMentors[i]['datetimeCalendar'] = start.format("YYYYMMDDTHHmmss") + "/" + start.add(1, 'hours').format("YYYYMMDDTHHmmss");
 			
-			var slotIndex = trackTimeSlots.indexOf(mentorTime.toString());
+			var slotIndex = trackTimeSlots.indexOf(allMentors[i]['datetime']);
 
 			//separate mentors by past and upcoming
 			if (mentorTime.getTime() > Date.now()) {
@@ -142,7 +138,7 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 			else {
 				pastMentors.push(allMentors[i]);
 			}
-
+			console.log(trackTimeSlots);
 			//remove taken slots from list of slots
 			if (slotIndex > -1){
 			 	trackTimeSlots.splice(slotIndex, 1);
