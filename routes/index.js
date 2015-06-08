@@ -101,6 +101,7 @@ function getAllSlots(err, allSlots, responsePage, res){
 		for ( var i = 0; i < allSlots.length; i++){
 			var time = new Date(allSlots[i]['datetime']);
 			if (new Date() < time) {
+				console.log(moment(time).format('llll'));
 				trackTimeSlots.push(moment(time).format('llll'));
 			}
 		}
@@ -121,6 +122,7 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 		var pastMentors = [];
 		var upcoming = [];
 
+
 		for(var i = 0; i < allMentors.length; i++){
 			var mentorTime = new Date(allMentors[i]['datetime']);
 						//reformat date to be prettier
@@ -131,14 +133,15 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 			
 			var slotIndex = trackTimeSlots.indexOf(allMentors[i]['datetime']);
 
-			//separate mentors by past and upcoming
-			if (mentorTime.getTime() > Date.now()) {
+			//separate mentors by past and upcoming, all mentors for the current day will be upcoming
+			if (mentorTime.getTime() > new Date(new Date().toLocaleDateString())) {
 				upcoming.push(allMentors[i]);
 			}
+
 			else {
 				pastMentors.push(allMentors[i]);
 			}
-			console.log(trackTimeSlots);
+
 			//remove taken slots from list of slots
 			if (slotIndex > -1){
 			 	trackTimeSlots.splice(slotIndex, 1);
