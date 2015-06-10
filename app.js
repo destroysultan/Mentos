@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
       // console.log(profile)
-      console.log("GoogleStrategy done callback")
+      console.log("GoogleStrategy done callback");
         process.nextTick(function () {
             return done(null, profile);
         });
@@ -50,7 +50,7 @@ app.use(session({
     return uid2(32); // use UUIDs for session IDs
   },
   secret: process.env.SESSION_SECRET
-}))
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -70,7 +70,7 @@ app.use('/auth/google', passport.authenticate('google',
 app.use('/oauth2callback',
   passport.authenticate('google', { failureRedirect: '/login_fail'}),
   function(req, res) {
-    if (req.user['_json'].domain == "tradecrafted.com")
+    if (req.user._json.domain == "tradecrafted.com")
       res.redirect('/');
     else {
       res.redirect('/login_fail');
