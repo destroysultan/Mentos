@@ -5,20 +5,12 @@ var _ = require('underscore');
 var moment = require('moment');
 var http = require('http');
 
-var pages = {
-	eng : 5,
-	growth: 4,
-	sales: 3,
-	pd: 2,
-	all : 1
-};
-
-var cachedPastMentors = {
-	eng: [],
-	growth: [],
-	sales: [],
-	pd: [],
-	all: []
+var tracks = {
+	eng : 	 { page : 5 },
+	growth : { page : 4 },
+	sales: 	 { page : 3 },
+	pd: 		 { page : 2 },
+	all : 	 { page : 1 }
 };
 
 var sortOptions = {
@@ -36,7 +28,7 @@ my_sheet.setAuth(process.env.EMAIL, process.env.GOOGLE_PASSWORD, function() {});
 router.get('/eng', ensureAuthenticated, function(req, res, next) {
 		
 		//obtain array of mentors ordered by datetime
-		my_sheet.getRows(pages.eng, sortOptions, function(err, allMentors){
+		my_sheet.getRows(tracks.eng.page, sortOptions, function(err, allMentors){
 			getMentorSlotObject('eng', allMentors, res);
 		});
 });
@@ -44,7 +36,7 @@ router.get('/eng', ensureAuthenticated, function(req, res, next) {
 router.get('/growth', ensureAuthenticated, function(req, res, next) {
 		
 		//obtain array of mentors ordered by datetime
-		my_sheet.getRows(pages.growth, sortOptions, function(err, allMentors){
+		my_sheet.getRows(tracks.growth.page, sortOptions, function(err, allMentors){
 			getMentorSlotObject('growth', allMentors, res);
 		});
 });
@@ -52,7 +44,7 @@ router.get('/growth', ensureAuthenticated, function(req, res, next) {
 router.get('/sales', ensureAuthenticated, function(req, res, next) {
 		
 		//obtain array of mentors ordered by datetime
-		my_sheet.getRows(pages.sales, sortOptions, function(err, allMentors){
+		my_sheet.getRows(tracks.sales.page, sortOptions, function(err, allMentors){
 			getMentorSlotObject('sales', allMentors, res);
 		});
 });
@@ -60,7 +52,7 @@ router.get('/sales', ensureAuthenticated, function(req, res, next) {
 router.get('/pd', ensureAuthenticated, function(req, res, next) {
 		
 		//obtain array of mentors ordered by datetime
-		my_sheet.getRows(pages.pd, sortOptions, function(err, allMentors){
+		my_sheet.getRows(tracks.pd.page, sortOptions, function(err, allMentors){
 			getMentorSlotObject('pd', allMentors, res);
 		});
 });
@@ -68,7 +60,7 @@ router.get('/pd', ensureAuthenticated, function(req, res, next) {
 router.get('/', ensureAuthenticated, function(req, res, next) {
 
 		//obtain array of mentors ordered by datetime
-		my_sheet.getRows(pages.all, sortOptions, function(err, allMentors){
+		my_sheet.getRows(tracks.all.page, sortOptions, function(err, allMentors){
 			getMentorSlotObject('all', allMentors, res);
 		});
 });
@@ -133,7 +125,7 @@ function getAllTrackSlots() {
 function getMentorSlotObject(track, allMentors, res){
 
 		//ordered list of mentors
-		var pastMentors = cachedPastMentors[track];
+		var pastMentors = tracks[track]['cachedPastMentors'] || [];
 		var upcoming = [];
 
 		var trackTimeSlots = (track === 'all') ? getAllTrackSlots() : getTrackSlots();
@@ -165,6 +157,8 @@ function getMentorSlotObject(track, allMentors, res){
 			 	trackTimeSlots.splice(slotIndex, 1);
 			}
 		}
+
+		tracks[track]['cachedPastMentors'] = pastMentors;
 
 		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots, past: pastMentors.reverse()});
 }
