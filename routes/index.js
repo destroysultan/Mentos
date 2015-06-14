@@ -5,14 +5,26 @@ var _ = require('underscore');
 var moment = require('moment');
 var http = require('http');
 
+var pages = {
+	eng : 5,
+	growth: 4,
+	sales: 3,
+	pd: 2,
+	all : 1
+};
 
-var allTrackSlotsPage = 7;
-var trackSlotPage = 6;
-var engPage = 5;
-var growthPage = 4;
-var salesPage = 3;
-var pdPage = 2;
-var allTrackPage = 1;
+var cachedPastMentors = {
+	eng: [],
+	growth: [],
+	sales: [],
+	pd: [],
+	all: []
+};
+
+var sortOptions = {
+	orderby: "datetime"
+};
+
 
 //the google sheet we're using
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -22,41 +34,42 @@ my_sheet.setAuth(process.env.EMAIL, process.env.GOOGLE_PASSWORD, function() {});
 
 /* GET pages. */
 router.get('/eng', ensureAuthenticated, function(req, res, next) {
-		// spreadsheet key is the long id in the sheets URL 
-		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
-			getAllSlots(err, allSlots, engPage, res, "eng");
-
-		});
-});
-
-router.get('/pd', ensureAuthenticated, function(req, res, next) {
-		// spreadsheet key is the long id in the sheets URL 
-		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
-			getAllSlots(err, allSlots, pdPage, res, "pd");
-
-		});
-});
-
-router.get('/sales', ensureAuthenticated, function(req, res, next) {
-		// spreadsheet key is the long id in the sheets URL 
-		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
-			getAllSlots(err, allSlots, salesPage, res, "sales");
-
+		
+		//obtain array of mentors ordered by datetime
+		my_sheet.getRows(pages.eng, sortOptions, function(err, allMentors){
+			getMentorSlotObject('eng', allMentors, res);
 		});
 });
 
 router.get('/growth', ensureAuthenticated, function(req, res, next) {
-		// spreadsheet key is the long id in the sheets URL 
-		my_sheet.getRows(trackSlotPage, function(err, allSlots) {
-			getAllSlots(err, allSlots, growthPage, res, "growth");
+		
+		//obtain array of mentors ordered by datetime
+		my_sheet.getRows(pages.growth, sortOptions, function(err, allMentors){
+			getMentorSlotObject('growth', allMentors, res);
+		});
+});
 
+router.get('/sales', ensureAuthenticated, function(req, res, next) {
+		
+		//obtain array of mentors ordered by datetime
+		my_sheet.getRows(pages.sales, sortOptions, function(err, allMentors){
+			getMentorSlotObject('sales', allMentors, res);
+		});
+});
+
+router.get('/pd', ensureAuthenticated, function(req, res, next) {
+		
+		//obtain array of mentors ordered by datetime
+		my_sheet.getRows(pages.pd, sortOptions, function(err, allMentors){
+			getMentorSlotObject('pd', allMentors, res);
 		});
 });
 
 router.get('/', ensureAuthenticated, function(req, res, next) {
-		// spreadsheet key is the long id in the sheets URL 
-		my_sheet.getRows(allTrackSlotsPage, function(err, allSlots) {
-			getAllSlots(err, allSlots, allTrackPage, res, "all");
+
+		//obtain array of mentors ordered by datetime
+		my_sheet.getRows(pages.all, sortOptions, function(err, allMentors){
+			getMentorSlotObject('all', allMentors, res);
 		});
 });
 
@@ -76,10 +89,6 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-router.get('/logged_out', function(req, res){ 
-	res.send('Logged out!');
-});
-
 function ensureAuthenticated(req, res, next) {  
     if (req.isAuthenticated() && req.user._json.domain == "tradecrafted.com") { return next(); }
     res.redirect('/auth/google');
@@ -87,35 +96,51 @@ function ensureAuthenticated(req, res, next) {
 
 //////////////////////////////////////////////////////////////
 
-function getAllSlots(err, allSlots, responsePage, res){
-		var trackTimeSlots = [];
+//generate track slots for the next 1-2 months
+function getTrackSlots() {
+	
+	var slots = [];
 
-		//grab all the date/time slots from the original spreadsheet
-		for ( var i = 0; i < allSlots.length; i++){
-			var time = new Date(allSlots[i].datetime);
-			if (new Date() < time) {
-				trackTimeSlots.push(moment(time).format('llll'));
-			}
-		}
+	var monday = moment().day(1).hour(13).minute(00); //next monday 1pm
+	var tuesday = moment().day(2).hour(17).minute(30); //next tuesday 5:30pm
+	var friday = moment().day(5).hour(9).minute(30); //next friday 9:30am	
 
-		var options = {
-			orderby: "datetime"
-		};
+	for (var i = 0; i < 5; i++){
+		slots.push(moment(monday).add(i*7, 'days').format('llll'));
+		slots.push(moment(tuesday).add(i*7, 'days').format('llll'));
+		slots.push(moment(friday).add(i*7, 'days').format('llll'));
+	}
 
-		my_sheet.getRows(responsePage, options, function(err, allMentors){
-			getMentorSlotObject(trackTimeSlots, allMentors, res);
-		});
+	return slots;
 }
 
-function getMentorSlotObject(trackTimeSlots, allMentors, res){
+//generate all-track slots for the next 1-2 months
+function getAllTrackSlots() {
+	
+	var slots = [];
+
+	var wednesday = moment().day(3).hour(17).minute(30); //next wednesday 5:30pm
+	var friday = moment().day(5).hour(13).minute(30); //next friday 1:30pm	
+
+	for (var i = 0; i < 5; i++){
+		slots.push(moment(wednesday).add(i*7, 'days').format('llll'));
+		slots.push(moment(friday).add(i*7, 'days').format('llll'));
+	}
+
+	return slots;
+}
+
+function getMentorSlotObject(track, allMentors, res){
 
 		//ordered list of mentors
-
-		var pastMentors = [];
+		var pastMentors = cachedPastMentors[track];
 		var upcoming = [];
 
+		var trackTimeSlots = (track === 'all') ? getAllTrackSlots() : getTrackSlots();
 
-		for(var i = 0; i < allMentors.length; i++){
+		//start where the cache left off, upcoming list shouldn't be too expensive
+		//upcoming is checked against 'now'
+		for(var i = pastMentors.length; i < allMentors.length; i++){
 			var mentorTime = new Date(allMentors[i].datetime);
 			
 			//reformat date to be prettier
@@ -141,7 +166,7 @@ function getMentorSlotObject(trackTimeSlots, allMentors, res){
 			}
 		}
 
-		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots.reverse(), past: pastMentors.reverse()});
+		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots, past: pastMentors.reverse()});
 }
 
 module.exports = router;
