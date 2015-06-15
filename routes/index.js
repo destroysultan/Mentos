@@ -132,7 +132,7 @@ function getMentorSlotObject(track, allMentors, res){
 
 		//start where the cache left off, upcoming list shouldn't be too expensive
 		//upcoming is checked against 'now'
-		for(var i = pastMentors.length; i < allMentors.length; i++){
+		for (var i = pastMentors.length; i < allMentors.length; i++){
 			var mentorTime = new Date(allMentors[i].datetime);
 			
 			//reformat date to be prettier
@@ -149,7 +149,7 @@ function getMentorSlotObject(track, allMentors, res){
 			}
 
 			else {
-				pastMentors.push(allMentors[i]);
+				pastMentors.unshift(allMentors[i]);
 			}
 
 			//remove taken slots from list of slots
@@ -160,7 +160,7 @@ function getMentorSlotObject(track, allMentors, res){
 
 		tracks[track]['cachedPastMentors'] = pastMentors;
 
-		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots, past: pastMentors.reverse()});
+		res.render('index', { title: 'Tradecraft Mentors', upcoming: upcoming, slots: trackTimeSlots, past: pastMentors});
 }
 
 module.exports = router;
