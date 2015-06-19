@@ -59,16 +59,14 @@
             <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">{{mentorname}} - {{titlecompany}}</h4>
-                  </div>
-                  
+
                   <div class="modal-body">
                     {{#if linkedinimg}}
-                      <img src="{{linkedinimg}}">
+                      <img style="float: right" src="{{linkedinimg}}">
                     {{/if}}
-
+                    <h2>{{mentorname}}</h2>
+                    <h3>{{titlecompany}}</h3>
+                    <br>
                     <h3>About:</h3>
                     <p> {{tellusaboutyourmentor}}</p>
 

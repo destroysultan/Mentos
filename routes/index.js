@@ -126,7 +126,6 @@ function getAllTrackSlots() {
 function getLinkedinImg(url) {
 	var img = "";
 	var res = request('GET', url);
-	console.log(res.body);
 	var $ = cheerio.load(res.body);
 	$('div.profile-picture > a > img').each(function() {
 	  img = ($(this)[0]['attribs']['src']);
