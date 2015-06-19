@@ -128,7 +128,7 @@ function getLinkedinImg(url) {
 	console.log('img:');
 	var res = request('GET', url);
 	var $ = cheerio.load(res.body);
-	console.log(res.body);
+	console.log($('.full-name').html());
 	$('div.profile-picture > a > img').each(function() {
 		console.log('found: ');
 	  img = ($(this)[0]['attribs']['src']);
