@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var GoogleSpreadsheet = require("google-spreadsheet");
-var _ = require('underscore');
 var moment = require('moment');
 var http = require('http');
+var request = require('sync-request');
+var cheerio = require('cheerio');
 
 var tracks = {
 	eng : 	 { page : 5 },
@@ -16,7 +17,6 @@ var tracks = {
 var sortOptions = {
 	orderby: "datetime"
 };
-
 
 //the google sheet we're using
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -122,6 +122,19 @@ function getAllTrackSlots() {
 	return slots;
 }
 
+//scrape for linkedin image url
+function getLinkedinImg(url) {
+	var img = "";
+	var res = request('GET', url);
+	console.log(res.body);
+	var $ = cheerio.load(res.body);
+	$('div.profile-picture > a > img').each(function() {
+	  img = ($(this)[0]['attribs']['src']);
+	});
+	console.log(img);
+	return img;
+}
+
 function getMentorSlotObject(track, allMentors, res){
 
 		//ordered list of mentors
@@ -145,6 +158,9 @@ function getMentorSlotObject(track, allMentors, res){
 
 			//separate mentors by past and upcoming, all mentors for the current day will be upcoming
 			if (mentorTime.getTime() > new Date(new Date().toLocaleDateString())) {
+				if (allMentors[i].linkedin){
+					allMentors[i].linkedinimg = getLinkedinImg(allMentors[i].linkedin);
+				}
 				upcoming.push(allMentors[i]);
 			}
 
