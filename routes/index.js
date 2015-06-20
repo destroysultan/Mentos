@@ -122,21 +122,6 @@ function getAllTrackSlots() {
 	return slots;
 }
 
-//scrape for linkedin image url
-function getLinkedinImg(url) {
-	var img = "";
-	console.log('img:');
-	var res = request('GET', url);
-	var $ = cheerio.load(res.body);
-	console.log($('.full-name').html());
-	$('div.profile-picture > a > img').each(function() {
-		console.log('found: ');
-	  img = ($(this)[0]['attribs']['src']);
-	});
-	console.log(img);
-	return img;
-}
-
 function getMentorSlotObject(track, allMentors, res){
 
 		//ordered list of mentors
@@ -160,9 +145,6 @@ function getMentorSlotObject(track, allMentors, res){
 
 			//separate mentors by past and upcoming, all mentors for the current day will be upcoming
 			if (mentorTime.getTime() > new Date(new Date().toLocaleDateString())) {
-				if (allMentors[i].linkedin){
-					allMentors[i].linkedinimg = getLinkedinImg(allMentors[i].linkedin);
-				}
 				upcoming.push(allMentors[i]);
 			}
 
