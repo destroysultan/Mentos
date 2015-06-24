@@ -90,14 +90,24 @@ function ensureAuthenticated(req, res, next) {
 
 //generate track slots for the next 1-2 months
 function getTrackSlots() {
-	
+	console.log('hello');
 	var slots = [];
+
 
 	var monday = moment().day(1).hour(13).minute(00); //next monday 1pm
 	var tuesday = moment().day(2).hour(17).minute(30); //next tuesday 5:30pm
 	var friday = moment().day(5).hour(9).minute(30); //next friday 9:30am	
 
-	for (var i = 0; i < 5; i++){
+	var today = new Date().getDay();
+
+	if (today < 2)
+		slots.push(moment(monday).add(i*7, 'days').format('llll'));
+	if (today < 3)
+		slots.push(moment(tuesday).add(i*7, 'days').format('llll'));
+	if (today < 6)
+		slots.push(moment(friday).add(i*7, 'days').format('llll'));
+
+	for (var i = 1; i < 5; i++){
 		slots.push(moment(monday).add(i*7, 'days').format('llll'));
 		slots.push(moment(tuesday).add(i*7, 'days').format('llll'));
 		slots.push(moment(friday).add(i*7, 'days').format('llll'));
@@ -113,6 +123,13 @@ function getAllTrackSlots() {
 
 	var wednesday = moment().day(3).hour(17).minute(30); //next wednesday 5:30pm
 	var friday = moment().day(5).hour(13).minute(30); //next friday 1:30pm	
+
+	var today = new Date().getDay();
+
+	if (today < 4)
+		slots.push(moment(wednesday).add(i*7, 'days').format('llll'));
+	if (today < 6)
+		slots.push(moment(friday).add(i*7, 'days').format('llll'));
 
 	for (var i = 0; i < 5; i++){
 		slots.push(moment(wednesday).add(i*7, 'days').format('llll'));
